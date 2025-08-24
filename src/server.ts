@@ -12,6 +12,11 @@ export async function startServer(port: number): Promise<void> {
   app.use(cors());
   app.use(bodyParser.json());
 
+  app.use((req, res, next) => {
+    console.log(`${req.method} ${req.path}`, req.body);
+    next();
+  });
+
   app.get('/health', (_, res) => {
     res.status(200).send({ status: 'ok' });
   });
